@@ -6,7 +6,6 @@ import soft.synergy.registraduriaapp.polling.models.entities.StandPerStationEnti
 import javax.persistence.*;
 import java.util.Date;
 
-@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
@@ -30,5 +29,10 @@ public class PollingLogsEntity {
     @Column(name = "date_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateTime;
+
+    public PollingLogsEntity() {
+        this.dateTime = new Date();
+    }
+
 
 }
