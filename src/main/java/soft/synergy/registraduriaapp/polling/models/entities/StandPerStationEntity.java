@@ -18,11 +18,11 @@ public class StandPerStationEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "stand_id")
     private StandEntity stand;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "polling_station_id")
     private PollingStationEntity pollingStation;
 

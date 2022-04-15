@@ -19,12 +19,12 @@ public class PollingLogsEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "stand_per_station_id")
     private StandPerStationEntity standPerStationEntity;
 
     @Column(name = "total_polls")
-    private Long totalPolls;
+    private long totalPolls;
 
     @Column(name = "date_time")
     @Temporal(TemporalType.TIMESTAMP)
