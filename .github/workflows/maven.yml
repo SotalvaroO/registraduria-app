@@ -28,6 +28,6 @@ jobs:
       uses: akhileshns/heroku-deploy@v3.12.12
       with:
         heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-        heroku_app_name: "oldwave-fastapi-backend"
+        heroku_app_name: "registraduria-app"
         heroku_email: "santiago.otalvaroo@udea.edu.co"
         rollbackonhealthcheckfailed: true
