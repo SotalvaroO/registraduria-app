@@ -17,9 +17,9 @@ spring:
     #driverClassName: org.h2.Driver
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
     #platform: h2
-    username: idelity-test@idelity-test
+    username: ${SQL_USER}
     #username: sa
-    password: Dontknow1
+    password: ${SQL_PASSWORD}
     #password:
 
   # ===============================
