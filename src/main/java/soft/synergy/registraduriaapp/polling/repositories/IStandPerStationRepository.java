@@ -7,9 +7,13 @@ import soft.synergy.registraduriaapp.polling.models.entities.PollingStationEntit
 import soft.synergy.registraduriaapp.polling.models.entities.StandEntity;
 import soft.synergy.registraduriaapp.polling.models.entities.StandPerStationEntity;
 
+import java.util.List;
+
 @Repository
 public interface IStandPerStationRepository extends JpaRepository<StandPerStationEntity, Long> {
 
     StandPerStationEntity findByPollingStationAndStand(PollingStationEntity station, StandEntity stand);
+
+    List<StandPerStationEntity> findAllByPollingStationCode(String code);
 
 }

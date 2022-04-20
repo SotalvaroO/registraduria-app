@@ -30,7 +30,7 @@ public class PollingLogsController {
     }
 
     @GetMapping(value = "/report")
-    public void exportReportToPdf(HttpServletResponse response) throws IOException {
+    public String exportReportToPdf(HttpServletResponse response) throws IOException {
         response.setContentType("application/pdf");
 
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
@@ -45,6 +45,8 @@ public class PollingLogsController {
 
         ReportExporterPDF exporter = new ReportExporterPDF(logs);
         exporter.export(response);
+
+        return "Report_"+date + ".pdf";
 
     }
 
