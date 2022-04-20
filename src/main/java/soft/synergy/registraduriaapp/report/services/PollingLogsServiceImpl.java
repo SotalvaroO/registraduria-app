@@ -3,6 +3,7 @@ package soft.synergy.registraduriaapp.report.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import soft.synergy.registraduriaapp.report.models.dtos.PollingLogsRequestDto;
+import soft.synergy.registraduriaapp.report.models.dtos.PollingLogsResponseDto;
 import soft.synergy.registraduriaapp.report.models.dtos.ReportDto;
 import soft.synergy.registraduriaapp.report.models.dtos.TotalPollsDto;
 import soft.synergy.registraduriaapp.report.models.entities.PollingLogsEntity;
@@ -24,8 +25,8 @@ public class PollingLogsServiceImpl implements IPollingLogsService {
     private final ReportMapper _reportMapper;
 
     @Override
-    public PollingLogsEntity createLog(PollingLogsRequestDto log) {
-        return _logsRepository.save(_logsMapper.dtoToModel(log));
+    public PollingLogsResponseDto createLog(PollingLogsRequestDto log) {
+        return _logsMapper.modelToDto(_logsRepository.save(_logsMapper.dtoToModel(log)));
     }
 
     @Override

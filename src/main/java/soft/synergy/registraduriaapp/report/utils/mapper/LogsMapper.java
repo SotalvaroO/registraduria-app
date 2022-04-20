@@ -6,6 +6,7 @@ import soft.synergy.registraduriaapp.polling.repositories.IPollingStationReposit
 import soft.synergy.registraduriaapp.polling.repositories.IStandPerStationRepository;
 import soft.synergy.registraduriaapp.polling.repositories.IStandRepository;
 import soft.synergy.registraduriaapp.report.models.dtos.PollingLogsRequestDto;
+import soft.synergy.registraduriaapp.report.models.dtos.PollingLogsResponseDto;
 import soft.synergy.registraduriaapp.report.models.entities.PollingLogsEntity;
 
 @Component
@@ -22,9 +23,21 @@ public class LogsMapper {
         PollingLogsEntity log = new PollingLogsEntity();
 
         log.setTotalPolls(logDto.getTotalPolls());
-        log.setStandPerStationEntity(_standPerStationRepository.findByPollingStationAndStand(_pollingStationRepository.findByCode(logDto.getPollingStationCode()), _standRepository.findByCode(logDto.getStandCode())));
+        log.setStandPerStationEntity(_standPerStationRepository.findByPollingStationAndStand(_pollingStationRepository.findByCode(logDto.getPollingStationCode()).orElse(null), _standRepository.findByCode(logDto.getStandCode())));
 
         return log;
+    }
+
+    public PollingLogsResponseDto modelToDto(PollingLogsEntity log) {
+        PollingLogsResponseDto logDto = new PollingLogsResponseDto();
+        logDto.setStationName(log.getStandPerStationEntity().getPollingStation().getName());
+        logDto.setStationAddress(log.getStandPerStationEntity().getPollingStation().getAddress());
+        logDto.setStandNumber(log.getStandPerStationEntity().getStand().getCode());
+        logDto.setTotalPolls(log.getTotalPolls());
+        logDto.setDateTime(log.getDateTime());
+
+        return logDto;
+
     }
 
 }
