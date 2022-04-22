@@ -55,3 +55,7 @@ https://registraduria-app.herokuapp.com/swagger-ui/index.html
 ## Link del repositorio
 
 https://github.com/SotalvaroO/registraduria-app.git
+
+## Diagramas
+- Entidad Relación: https://drive.google.com/file/d/1PqrecMTw_RbrgFaWjPawyFcwbQGnh2h8/view?usp=sharing
+- Diagrama de procesos: https://drive.google.com/file/d/1dFaNedCfM9ukl0VbPHvubSx_4qS59LIS/view?usp=sharing
