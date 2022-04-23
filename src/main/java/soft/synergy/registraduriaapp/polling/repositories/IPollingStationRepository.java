@@ -10,6 +10,5 @@ import java.util.Optional;
 public interface IPollingStationRepository extends JpaRepository<PollingStationEntity, Long> {
 
     Optional<PollingStationEntity> findByCode(String code);
-    Optional<PollingStationEntity> findByName(String name);
 
 }

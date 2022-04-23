@@ -14,6 +14,9 @@ public interface IStandPerStationRepository extends JpaRepository<StandPerStatio
 
     StandPerStationEntity findByPollingStationAndStand(PollingStationEntity station, StandEntity stand);
 
+    @Query("SELECT u FROM StandPerStationEntity u WHERE u.pollingStation.code = ?1 and u.stand.code = ?2")
+    StandPerStationEntity findByPollingStationCodeAndStandCode(String stationCode, String standCode);
+
     List<StandPerStationEntity> findAllByPollingStationCode(String code);
 
 }
