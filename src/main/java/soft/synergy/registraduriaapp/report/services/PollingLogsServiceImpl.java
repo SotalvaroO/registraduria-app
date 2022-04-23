@@ -1,7 +1,13 @@
 package soft.synergy.registraduriaapp.report.services;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import soft.synergy.registraduriaapp.polling.models.entities.PollingStationEntity;
+import soft.synergy.registraduriaapp.polling.models.entities.StandPerStationEntity;
+import soft.synergy.registraduriaapp.polling.repositories.IPollingStationRepository;
+import soft.synergy.registraduriaapp.polling.repositories.IStandPerStationRepository;
+import soft.synergy.registraduriaapp.polling.repositories.IStandRepository;
 import soft.synergy.registraduriaapp.report.models.dtos.PollingLogsRequestDto;
 import soft.synergy.registraduriaapp.report.models.dtos.PollingLogsResponseDto;
 import soft.synergy.registraduriaapp.report.models.dtos.ReportDto;
@@ -18,6 +24,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PollingLogsServiceImpl implements IPollingLogsService {
 
+    private final IStandPerStationRepository _standPerStationRepository;
+
     private final IPollingLogsRepository _logsRepository;
 
     private final LogsMapper _logsMapper;
@@ -26,7 +34,14 @@ public class PollingLogsServiceImpl implements IPollingLogsService {
 
     @Override
     public PollingLogsResponseDto createLog(PollingLogsRequestDto log) {
-        return _logsMapper.modelToDto(_logsRepository.save(_logsMapper.dtoToModel(log)));
+
+        StandPerStationEntity standPerStation = _standPerStationRepository.findByPollingStationCodeAndStandCode(log.getPollingStationCode(),log.getStandCode());
+        if (standPerStation != null){
+            PollingLogsEntity logEntity = _logsMapper.dtoToModel(log);
+            PollingLogsEntity logSaved = _logsRepository.save(logEntity);
+            return _logsMapper.modelToDto(logSaved);
+        }
+        return null;
     }
 
     @Override
@@ -36,8 +51,8 @@ public class PollingLogsServiceImpl implements IPollingLogsService {
 
         List<ReportDto> report = new ArrayList<>();
 
-        for (TotalPollsDto p: logs
-             ) {
+        for (TotalPollsDto p : logs
+        ) {
             report.add(_reportMapper.totalPollsToReportDto(p));
         }
 

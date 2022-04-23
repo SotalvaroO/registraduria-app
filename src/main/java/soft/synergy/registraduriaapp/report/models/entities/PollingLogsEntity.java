@@ -30,6 +30,7 @@ public class PollingLogsEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateTime;
 
+
     public PollingLogsEntity() {
         this.dateTime = new Date();
     }

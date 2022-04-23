@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Builder
 
 @Entity
-@Table(name = "tbl_stand_per_station")
+@Table(name = "tbl_stand_per_station", uniqueConstraints = @UniqueConstraint(columnNames = {"polling_station_id", "stand_id"}))
 public class StandPerStationEntity {
 
     @Id
