@@ -5,7 +5,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 
-@Builder
 public class ReportDto {
 
     private String stationId;

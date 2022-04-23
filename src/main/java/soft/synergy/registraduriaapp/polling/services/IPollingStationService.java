@@ -8,7 +8,5 @@ import java.util.List;
 public interface IPollingStationService {
 
     List<PollingStationDto> findAllStations();
-    PollingStationDto findByCode(String code);
-    PollingStationDto findByName(String name);
 
 }

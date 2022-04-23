@@ -1,6 +1,7 @@
 package soft.synergy.registraduriaapp.report.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,19 +24,20 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST})
 @RestController
 @RequestMapping(value = "/api/logs")
 public class PollingLogsController {
 
-    private final IPollingLogsService _logsService;
+    @Autowired
+    private IPollingLogsService _logsService;
 
 
     @PostMapping
     public ResponseEntity<?> createLog(@Valid @RequestBody PollingLogsRequestDto log, BindingResult result) {
 
         Map<String, Object> response = new HashMap<>();
+
 
         if (result.hasErrors()) {
 
@@ -44,12 +46,17 @@ public class PollingLogsController {
                     .map(err -> {
                         return "The field " + err.getField() + " " + err.getDefaultMessage();
                     }).collect(Collectors.toList());
-            response.put("errors",errors);
+            response.put("errors", errors);
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
         }
         PollingLogsResponseDto logToCreate = new PollingLogsResponseDto();
         try {
             logToCreate = _logsService.createLog(log);
+            if (logToCreate == null) {
+                response.put("Error", "Could not find stations or/and stand with that values");
+                response.put("message", "Fail");
+                return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         } catch (DataAccessException e) {
             response.put("message", "error during creating in the database");
             response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));

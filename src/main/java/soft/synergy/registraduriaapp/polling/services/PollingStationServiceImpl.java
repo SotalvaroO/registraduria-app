@@ -29,21 +29,4 @@ public class PollingStationServiceImpl implements IPollingStationService{
         return stationsDto;
     }
 
-    @Override
-    public PollingStationDto findByCode(String code) {
-        PollingStationEntity station = _stationRepository.findByCode(code).orElse(null);
-        if (station == null){
-            return null;
-        }
-        return _stationMapper.modelToDto(station);
-    }
-
-    @Override
-    public PollingStationDto findByName(String name) {
-        PollingStationEntity station = _stationRepository.findByName(name).orElse(null);
-        if (station == null){
-            return null;
-        }
-        return _stationMapper.modelToDto(station);
-    }
 }
